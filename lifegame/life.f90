@@ -1,0 +1,44 @@
+module life
+  implicit none
+  public :: nextlife
+
+contains
+  subroutine nextlife(life,newlife,life2,fate)
+    use const
+    integer,intent(in) :: life(m,n),fate(0:255,0:1)
+    integer,intent(out) :: newlife(m,n)
+    integer,intent(inout) :: life2(0:m+1,0:n+1)
+    integer :: i,j,k,ind
+
+    life2=0
+    do j=1,n
+       do i=1,m
+          life2(i,j)=life(i,j)
+       end do
+    end do
+    
+    !boundary
+   ! do i=1,m
+   !    life2(i,0)=life(i,1)
+   !    life2(i,n+1)=life(i,n)
+   ! end do
+       
+   ! do j=1,n
+       !life2(0,j)=life(1,j)
+       !life2(m+1,j)=life(m,j)
+   ! end do
+    
+   ! life2(0,0)=0!life(1,1)
+   ! life2(m+1,n+1)=0!life(m,n)
+   ! life2(0,n+1)=0!life(1,n)
+   ! life2(m+1,0)=0!life(m,1)
+    !determine the fate
+    do j=1,n
+       do i=1,m
+          ind=life2(i-1,j-1)*128+life2(i-1,j)*64+life2(i-1,j+1)*32+life2(i,j+1)*16&
+               &+life2(i+1,j+1)*8+life2(i+1,j)*4+life2(i+1,j-1)*2+life2(i,j-1)*1
+          newlife(i,j)=fate(ind,life(i,j))
+       end do
+    end do
+  end subroutine  nextlife
+end module life
