@@ -8,22 +8,24 @@ import numpy as np
 import tkinter as tk
 from multiprocessing import Pool
 import cv2
+from numba import jit
 
 
 # In[14]:
 
 
+#@jit
 class cells:
     def __init__(self,m,n,w,canvas):
         #初期セル配置は常にゼロ
         #selfのセルにデータを格納
-        self.cell=np.zeros((m+1,n+1),dtype=np.uint8)
-        self.ncell=np.zeros((m+1,n+1),dtype=np.uint8)
+        self.cell=np.zeros((m+2,n+2),dtype=np.uint16)
+        self.ncell=np.zeros((m+2,n+2),dtype=np.uint16)
         self.height=m
         self.width=n
         self.cellsize=w
         self.canvas=canvas
-        self.kernel = np.array([[1,1,1],[1,0,1],[1,1,1]], dtype=np.uint8)
+        self.kernel = np.array([[1,1,1],[1,0,1],[1,1,1]], dtype=np.uint16)
 
         #運命関数の定義
         #self.dest=np.zeros((256,2),dtype=int)
@@ -80,7 +82,7 @@ class cells:
         
         self.ncell=alive+born
         
-        self.cell=self.ncell.astype(np.uint8)
+        self.cell=self.ncell.astype(np.uint16)
         #for j in range(self.width):
         #    for i in range(self.height):
         #        self.cell[i,j]=self.ncell[i,j]
@@ -88,9 +90,9 @@ class cells:
         #elf.cell=
     def graphic(self):
         self.canvas.delete("all")
-        for j in range(1,self.width+1):
-            for i in range(1,self.height+1):
-                if self.cell[i,j]==1:
+        for j in range(self.width):
+            for i in range(self.height):
+                if self.cell[i+1,j+1]==1:
                      self.canvas.create_rectangle(self.cellsize*i, self.cellsize*j, self.cellsize*i+self.cellsize, self.cellsize*j+self.cellsize,outline="black",fill='lime', width=1)            
 
 
