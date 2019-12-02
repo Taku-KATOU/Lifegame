@@ -17,8 +17,8 @@ class cells:
     def __init__(self,m,n,w,canvas):
         #初期セル配置は常にゼロ
         #selfのセルにデータを格納
-        self.cell=np.zeros((m+2,n+2),dtype=np.uint8)
-        self.ncell=np.zeros((m+2,n+2),dtype=np.uint8)
+        self.cell=np.zeros((m+1,n+1),dtype=np.uint8)
+        self.ncell=np.zeros((m+1,n+1),dtype=np.uint8)
         self.height=m
         self.width=n
         self.cellsize=w
@@ -88,8 +88,8 @@ class cells:
         #elf.cell=
     def graphic(self):
         self.canvas.delete("all")
-        for j in range(self.width):
-            for i in range(self.height):
+        for j in range(1,self.width+1):
+            for i in range(1,self.height+1):
                 if self.cell[i,j]==1:
                      self.canvas.create_rectangle(self.cellsize*i, self.cellsize*j, self.cellsize*i+self.cellsize, self.cellsize*j+self.cellsize,outline="black",fill='lime', width=1)            
 
