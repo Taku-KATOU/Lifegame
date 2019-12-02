@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # coding: utf-8
 
-# In[1]:
+# In[13]:
 
 
 import numpy as np
@@ -23,16 +23,16 @@ def btn_click():
     #print(j)
     #j=j+1
     #if tago==1 :
-    root.after(5,btn_click)
+    root.after(10,btn_click)
 def btn_stop():
     root.quit()
     exit()
     #plt.imshow(np.transpose(cell.cell))
 #cellを定義
-m=100
-n=100
+m=300
+n=300
 #cellのwidthを指定
-wcell=5
+wcell=3
 #tago=1
 #cellを定義
 #cell=lg.cells(m,n)
@@ -56,6 +56,12 @@ btn.place(x=800, y=300)
 btn2 =tk.Button(root,text='stop',command=btn_stop)
 btn2.place(x=800, y=400)
 root.mainloop()
+
+
+# In[ ]:
+
+
+
 
 
 # In[ ]:
